@@ -2,17 +2,22 @@ import sys
 
 import pygame
 
+from settings import Settings
 
 class SpaceInvaders:
     """Overall class to manage game assets and behavior."""
     def __init__(self):
         """Initialize the game, and create game resources."""
-        pygame.init()
-        self.screen = pygame.display.set_mode((1200, 800))
-        pygame.display.set_caption("Space Invaders!")
-        self.clock = pygame.time.Clock() # creating a clock to manage the correct frame rate
-        self.bg_color = (230, 230, 230) # Set the background color to light gray
 
+        pygame.init()
+        
+        self.clock = pygame.time.Clock() # creating a clock to manage the correct frame rate
+        
+        self.settings = Settings() #A instance of Settings is created
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        
+        pygame.display.set_caption("Space Invaders! by Sp0ck")
+        
     def run_game(self):
         """Start the main loop for the game"""
         while True:
@@ -22,7 +27,7 @@ class SpaceInvaders:
                     sys.exit()
             
             # Fill the screen with background color
-            self.screen.fill(self.bg_color) 
+            self.screen.fill(self.settings.bg_color) 
 
             # Make the most recently drawn screen visible.
             pygame.display.flip()
