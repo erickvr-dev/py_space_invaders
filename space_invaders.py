@@ -16,8 +16,19 @@ class SpaceInvaders:
         self.clock = pygame.time.Clock() # creating a clock to manage the correct frame rate
         
         self.settings = Settings() #A instance of Settings is created
+
+        # this code sets the game to run on a WINDOW, COMMENT THIS AND UNCOMMENT NEXT BLOCK TO MAKE IT RUN ON FULLSCREEN
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         
+        # UNCOMMENT this block to make the game run on FULLSCREEN
+        """
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
+        """
+        
+
+
         pygame.display.set_caption("Space Invaders! by Sp0ck")
 
         self.ship = Ship(self) # creates a ship object giving self reference to the game.
