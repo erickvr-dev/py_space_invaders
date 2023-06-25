@@ -86,7 +86,8 @@ class SpaceInvaders:
 
     def _check_play_button(self, mouse_pos):
         """Start a new game when the player clicks Play."""
-        if self.play_button.rect.collidepoint(mouse_pos):
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.game_active:
             # Reset the game statistics.
             self.stats.reset_stats()
             self.game_active = True
@@ -98,6 +99,9 @@ class SpaceInvaders:
             # Create a new fleet and center the ship.
             self._create_fleet()
             self.ship.center_ship()
+
+            # Hide the mouse cursor.
+            pygame.mouse.set_visible(False)
 
     
     def _check_keydown_events(self, event):
@@ -205,6 +209,7 @@ class SpaceInvaders:
             sleep(0.5)
         else:
             self.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _check_fleet_edges(self):
         """Respond appropriately if any aliens have reached an edge."""
