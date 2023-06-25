@@ -97,9 +97,12 @@ class SpaceInvaders:
                 self.bullets.remove(bullet)
         # print(len(self.bullets)) this line is just to make sure that old bullets are deleted.
 
-        # Check for any bullets that have hit aliens.
-        # If so, get rid of the bullet and the alien.
-        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        self._check_bullet_alien_collisions()
+
+    def _check_bullet_alien_collisions(self):
+        """Respond to bullet-alien collisions."""
+        # Remove any bullets and aliens that have collided.
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True) # change to False and True to make inmortal bullets.
 
         if not self.aliens:
             # Destroy existing bullets and create new fleet.
@@ -110,6 +113,10 @@ class SpaceInvaders:
         """Check if the fleet is at an edge, then update positions."""
         self._check_fleet_edges()
         self.aliens.update()
+
+        # Look for alien-ship collisions.
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print("Ship hit!!!")
 
 
     def _create_fleet(self):
