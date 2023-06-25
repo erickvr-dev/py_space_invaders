@@ -46,8 +46,8 @@ class SpaceInvaders:
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
 
-        # Start Space Invaders in an active state.
-        self.game_active = True
+        # Start Space Invaders in an inactive state.
+        self.game_active = False
         
     def run_game(self):
         """Start the main loop for the game"""
