@@ -44,7 +44,7 @@ class SpaceInvaders:
             self._check_events()
             self.ship.update()
             self._update_bullets()
-
+            self._update_aliens()
             self._update_screen()
 
             # Stablish the clock to maintain 60 times per second
@@ -96,6 +96,11 @@ class SpaceInvaders:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
         # print(len(self.bullets)) this line is just to make sure that old bullets are deleted.
+
+    def _update_aliens(self):
+        """Update the positions of all aliens in the fleet."""
+        self.aliens.update()
+
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
