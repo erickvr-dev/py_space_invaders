@@ -1,8 +1,12 @@
 import sys
 
+from time import sleep
+
 import pygame
 
 from settings import Settings
+
+from game_stats import GameStats
 
 from ship import Ship
 
@@ -31,6 +35,10 @@ class SpaceInvaders:
         self.settings.screen_height = self.screen.get_rect().height
         """
         pygame.display.set_caption("Space Invaders! by Sp0ck")
+
+        # Create an instance to store game statistics.
+        self.stats = GameStats(self)
+
         self.ship = Ship(self) # creates a ship object giving self reference to the game.
 
         self.bullets = pygame.sprite.Group()
@@ -116,7 +124,7 @@ class SpaceInvaders:
 
         # Look for alien-ship collisions.
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            print("Ship hit!!!")
+            self._ship_hit()
 
 
     def _create_fleet(self):
@@ -144,6 +152,22 @@ class SpaceInvaders:
         new_alien.rect.x = x_position
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
+
+    def _ship_hit(self):
+        """Respond to the ship being hit by an alien."""
+        # Decrement ships_left.
+        self.stats.ships_left -= 1
+
+        # Get rid of any remaining bullets and aliens.
+        self.bullets.empty()
+        self.aliens.empty()
+
+        # Create a new fleet and center the ship.
+        self._create_fleet()
+        self.ship.center_ship()
+
+        # Pause
+        sleep(0.5)
 
     def _check_fleet_edges(self):
         """Respond appropriately if any aliens have reached an edge."""
