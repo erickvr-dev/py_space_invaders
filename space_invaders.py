@@ -8,6 +8,8 @@ from settings import Settings
 
 from game_stats import GameStats
 
+from scoreboard import ScoreBoard
+
 from button import Button
 
 from ship import Ship
@@ -38,8 +40,9 @@ class SpaceInvaders:
         """
         pygame.display.set_caption("Space Invaders! by Sp0ck")
 
-        # Create an instance to store game statistics.
+        # Create and instance to store game statistics, and create a scoreboard.
         self.stats = GameStats(self)
+        self.sb = ScoreBoard(self)
 
         self.ship = Ship(self) # creates a ship object giving self reference to the game.
 
@@ -243,6 +246,9 @@ class SpaceInvaders:
             bullet.draw_bullet()
         self.ship.blitme()
         self.aliens.draw(self.screen)
+
+        # Draw the score information.
+        self.sb.show_score()
 
         # Draw the play button if the game is inactive
         if not self.game_active:
